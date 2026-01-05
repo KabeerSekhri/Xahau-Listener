@@ -1,0 +1,20 @@
+{
+  "transactionTypes": ["Payment"],
+
+  "filters": {
+    "global": {
+      "sourceAccounts": [],
+      "memoContains": ""
+    },
+    "payment": {
+      "minAmount": 1,
+      "currency": "XAH"
+    }
+  },
+
+  "notifications": {
+    "telegram": {
+      "enabled": true
+    }
+  }
+}
