@@ -1,5 +1,5 @@
 {
-  "transactionTypes": ["Payment"],
+  "transactionTypes": ["Payment", "AccountSet", "URITokenMint"],
 
   "filters": {
     "global": {
@@ -7,7 +7,7 @@
       "memoContains": ""
     },
     "payment": {
-      "minAmount": 1,
+      "minAmount": 1,  
       "currency": "XAH"
     }
   },

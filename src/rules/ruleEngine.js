@@ -10,7 +10,7 @@ function matches(event, config) {
     return paymentFiltersPass(event, config.filters.payment);
   }
 
-  return false;
+  return true;
 }
 
 module.exports = { matches };

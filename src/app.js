@@ -16,7 +16,7 @@ startListener(async tx => {
   if (!matches(event, config)) return;
   if (isDuplicate(event.hash)) return;
 
-  console.log("🔥 Match:", event.hash);
+  console.log("🔥 Match:", event.type);
 
   if (config.notifications.telegram.enabled) {
     await sendTelegram(event);
