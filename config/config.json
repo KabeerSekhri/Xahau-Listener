@@ -1,5 +1,5 @@
 {
-  "transactionTypes": ["Payment", "AccountSet", "URITokenMint"],
+  "transactionTypes": ["Payment"],
 
   "filters": {
     "global": {
@@ -14,6 +14,9 @@
 
   "notifications": {
     "telegram": {
+      "enabled": true
+    },
+    "email": {
       "enabled": true
     }
   }

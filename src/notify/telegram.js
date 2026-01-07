@@ -2,16 +2,10 @@
 
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
+const { formatEvent } = require("./msg_format") 
 
 async function sendTelegram(event) {
-  const text = `
-🚨 ${event.type} detected
-From: ${event.from}
-To: ${event.to}
-Amount: ${event.amount} ${event.currency}
-Memo: ${event.memo || "—"}
-Tx: https://explorer.xahau.network/tx/${event.hash}
-`;
+  const text = formatEvent(event);
 
   await fetch(
     `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`,
