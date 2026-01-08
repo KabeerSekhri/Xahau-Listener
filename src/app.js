@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const config = require("../config/config.json");
+const { getConfig } = require("./config/configLoader");
 const { startListener } = require("./ws/listener");
 const { parseTransaction } = require("./parsers");
 const { matches } = require("./rules/ruleEngine");
@@ -10,6 +10,8 @@ const { sendEmail } = require("./notify/email");
 
 
 startListener(async tx => {
+  const config = getConfig();
+  
   if (!config.transactionTypes.includes(tx.TransactionType)) return;
 
   const event = parseTransaction(tx);
@@ -18,6 +20,7 @@ startListener(async tx => {
   if (!matches(event, config)) return;
   if (isDuplicate(event.hash)) return;
 
+  console.log("🔍 Evaluating:", event.type, event.hash);
   console.log("🔥 Match:", event.type);
 
   if (config.notifications.telegram.enabled) {
