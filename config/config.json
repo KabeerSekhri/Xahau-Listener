@@ -1,11 +1,15 @@
 {
-  "transactionTypes": ["Payment", "AccountSet", "URITokenMint"],
+  "transactionTypes": [
+    "Payment",
+    "AccountSet"
+  ],
 
   "filters": {
     "global": {
       "sourceAccounts": [],
       "memoContains": ""
     },
+
     "payment": {
       "amount": {
         "min": 0,
@@ -13,7 +17,7 @@
         "exact": null
       },
       "token": {
-        "type": "issued", 
+        "type": "any", 
         "currency": null,
         "issuer": null
       },
@@ -22,8 +26,27 @@
         "to": []
       },
       "tags": {
-        "source": null,
         "destination": null
+      }
+    },
+
+    "accountSet": {
+      "accounts":{
+        "account": [],
+        "domain": []
+      }
+    },
+
+    "uriMint": {
+      "accounts":{
+        "account": [],
+        "destination": [],
+        "uri": []
+      },
+      "amount": {
+        "min": 0,
+        "max": null,
+        "exact": null
       }
     }
   },
@@ -33,7 +56,7 @@
       "enabled": true
     },
     "email": {
-      "enabled": true
+      "enabled": false
     }
   }
 }

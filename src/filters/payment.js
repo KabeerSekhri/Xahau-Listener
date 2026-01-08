@@ -40,13 +40,6 @@ function paymentFiltersPass(event, config) {
 
   // --- Tag filters ---
   if (
-    config.tags?.source !== null &&
-    event.sourceTag !== config.tags.source
-  ) {
-    return false;
-  }
-
-  if (
     config.tags?.destination !== null &&
     event.destinationTag !== config.tags.destination
   ) {
