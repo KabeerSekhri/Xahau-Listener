@@ -11,6 +11,9 @@ function parsePayment(tx) {
     to: tx.Destination,
     amount,
     currency: tx.Amount.currency || "XAH",
+    issuer: tx.Amount.issuer ?? null,
+    sourceTag: tx.SourceTag ?? null,
+    destinationTag: tx.DestinationTag ?? null,
     memo: tx.Memos?.[0]?.Memo?.MemoData
       ? Buffer.from(tx.Memos[0].Memo.MemoData, "hex").toString()
       : null,

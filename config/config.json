@@ -1,5 +1,5 @@
 {
-  "transactionTypes": ["Payment"],
+  "transactionTypes": ["Payment", "AccountSet", "URITokenMint"],
 
   "filters": {
     "global": {
@@ -7,8 +7,24 @@
       "memoContains": ""
     },
     "payment": {
-      "minAmount": 1,  
-      "currency": "XAH"
+      "amount": {
+        "min": 0,
+        "max": null,
+        "exact": null
+      },
+      "token": {
+        "type": "issued", 
+        "currency": null,
+        "issuer": null
+      },
+      "accounts": {
+        "from": [],
+        "to": []
+      },
+      "tags": {
+        "source": null,
+        "destination": null
+      }
     }
   },
 

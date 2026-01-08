@@ -27,7 +27,7 @@ function formtURImint(event) {
 Account: ${event.account}
 Flags: ${event.flags}
 URI: ${event.uri}
-Amount: ${event.amount}
+Amount: ${event.amount ?? "—"}
 Destination: ${event.destination ?? "—"}
 Memo: ${event.memo || "—"}
 Tx: https://explorer.xahau.network/tx/${event.hash}
