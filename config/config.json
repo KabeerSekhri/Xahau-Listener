@@ -53,7 +53,7 @@
           "exact": null
         },
         "token": {
-          "type": "native",
+          "type": "any",
           "currency": null,
           "issuer": null
         }

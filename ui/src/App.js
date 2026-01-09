@@ -48,51 +48,58 @@ function App() {
   if (!config) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h2>Xahau Ops Detector</h2>
+    <div className="app-container">
+      <header className="app-header">
+        <h1>Xahau Live-Ops Detector</h1>
+        <p>Transaction monitoring & filter configuration</p>
+      </header>
 
-      <PaymentFilters
-        payment={config.filters.payment}
-        onChange={(payment) =>
-          setConfig({
-            ...config,
-            filters: {
-              ...config.filters,
-              payment
-            }
-          })
-        }
-      />
+      <div className="filters-grid">
+        <PaymentFilters
+          payment={config.filters.payment}
+          onChange={(payment) =>
+            setConfig({
+              ...config,
+              filters: {
+                ...config.filters,
+                payment
+              }
+            })
+          }
+        />
+        <AccountSetFilters
+          accountSet={config.filters.accountSet}
+          onChange={(accountSet) =>
+            setConfig({
+              ...config,
+              filters: {
+                ...config.filters,
+                accountSet
+              }
+            })
+          }
+        />
+        <UriMintFilters
+          uriMint={config.filters.uriMint}
+          onChange={(uriMint) =>
+            setConfig({
+              ...config,
+              filters: {
+                ...config.filters,
+                uriMint
+              }
+            })
+          }
+        />
+      </div>
 
-      <AccountSetFilters
-        accountSet={config.filters.accountSet}
-        onChange={(accountSet) =>
-          setConfig({
-            ...config,
-            filters: {
-              ...config.filters,
-              accountSet
-            }
-          })
-        }
-      />
-
-      <UriMintFilters
-        uriMint={config.filters.uriMint}
-        onChange={(uriMint) =>
-          setConfig({
-            ...config,
-            filters: {
-              ...config.filters,
-              uriMint
-            }
-          })
-        }
-      />
-
-      <button onClick={() => saveConfig(config)}>
+      <button className="save-btn" onClick={() => saveConfig(config)}>
         Save Filters
       </button>
+
+      <footer className="footer">
+        Made by <strong>Kabeer Sekhri</strong>
+      </footer>
     </div>
   );
 }
