@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getConfig, saveConfig } from "./api";
 import PaymentFilters from "./PaymentFilters";
+import AccountSetFilters from "./AccountSetFilters";
 
 function App() {
   const [config, setConfig] = useState(null);
@@ -18,6 +19,15 @@ function App() {
           destinationTag: null
         }
       };
+
+      cfg.filters.accountSet ||= {
+          enabled: true,
+          accounts: { source: [] },
+          conditions: {
+            domainOnly: false,
+            requireFlagChange: false
+          }
+        };
 
       setConfig(cfg);
     });
@@ -37,6 +47,19 @@ function App() {
             filters: {
               ...config.filters,
               payment
+            }
+          })
+        }
+      />
+
+      <AccountSetFilters
+        accountSet={config.filters.accountSet}
+        onChange={(accountSet) =>
+          setConfig({
+            ...config,
+            filters: {
+              ...config.filters,
+              accountSet
             }
           })
         }

@@ -12,7 +12,9 @@ const { sendEmail } = require("./notify/email");
 startListener(async tx => {
   const config = getConfig();
   
-  if (!config.transactionTypes.includes(tx.TransactionType)) return;
+  console.log("🔍 Evaluating:", tx.TransactionType); // Debug to check whats being passed through
+  
+  // if (!config.transactionTypes.includes(tx.TransactionType)) return;
 
   const event = parseTransaction(tx);
   if (!event) return;
@@ -20,7 +22,6 @@ startListener(async tx => {
   if (!matches(event, config)) return;
   if (isDuplicate(event.hash)) return;
 
-  console.log("🔍 Evaluating:", event.type, event.hash);
   console.log("🔥 Match:", event.type);
 
   if (config.notifications.telegram.enabled) {

@@ -29,9 +29,13 @@
       }
     },
     "accountSet": {
+      "enabled": true,
       "accounts": {
-        "account": [],
-        "domain": []
+        "source": []
+      },
+      "conditions": {
+        "domainOnly": false,
+        "requireFlagChange": true
       }
     },
     "uriMint": {

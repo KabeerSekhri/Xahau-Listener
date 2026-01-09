@@ -3,9 +3,10 @@ const path = require("path");
 
 const CONFIG_PATH = path.join(__dirname, "../../config/config.json");
 
-let cachedConfig = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8"));
+let cachedConfig = null;
 
 function getConfig() {
+  cachedConfig = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8"));
   return cachedConfig;
 }
 
