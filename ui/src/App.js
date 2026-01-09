@@ -6,7 +6,21 @@ function App() {
   const [config, setConfig] = useState(null);
 
   useEffect(() => {
-    getConfig().then(res => setConfig(res.data));
+    getConfig().then(res => {
+      const cfg = res.data;
+
+      cfg.filters.payment ||= {
+        enabled: true,
+        accounts: { from: [], to: [] },
+        conditions: {
+          amount: { min: 0, max: 0, exact: null },
+          token: { type: "any", currency: null, issuer: null },
+          destinationTag: null
+        }
+      };
+
+      setConfig(cfg);
+    });
   }, []);
 
   if (!config) return <div>Loading...</div>;
@@ -17,15 +31,15 @@ function App() {
 
       <PaymentFilters
         payment={config.filters.payment}
-        onChange={payment => {
+        onChange={(payment) =>
           setConfig({
             ...config,
             filters: {
               ...config.filters,
               payment
             }
-          });
-        }}
+          })
+        }
       />
 
       <button onClick={() => saveConfig(config)}>

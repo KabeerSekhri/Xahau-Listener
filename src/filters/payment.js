@@ -1,47 +1,59 @@
-function paymentFiltersPass(event, config) {
-  // --- Amount filters ---
-  if (config.amount?.exact !== null && event.amount !== config.amount.exact) {
+function paymentFiltersPass(event, filter) {
+  if (!filter?.enabled) return false;
+
+  const { accounts, conditions } = filter;
+
+  /* -------------------- Account filters -------------------- */
+  if (accounts?.from?.length && !accounts.from.includes(event.from)) {
     return false;
   }
 
-  if (config.amount?.min !== null && event.amount < config.amount.min) {
+  if (accounts?.to?.length && !accounts.to.includes(event.to)) {
     return false;
   }
 
-  if (config.amount?.max !== null && event.amount > config.amount.max) {
-    return false;
+  /* -------------------- Amount filters -------------------- */
+  const amount = conditions?.amount;
+
+  if (amount) {
+    if (amount.exact !== null && event.amount !== amount.exact) {
+      return false;
+    }
+
+    if (amount.min !== null && event.amount < amount.min) {
+      return false;
+    }
+
+    if (amount.max !== null && amount.max > 0 && event.amount > amount.max) {
+      return false;
+    }
   }
 
-  // --- Token filters ---
-  if (config.token?.type === "native" && event.currency !== "XAH") {
-    return false;
+  /* -------------------- Token filters -------------------- */
+  const token = conditions?.token;
+
+  if (token) {
+    if (token.type === "native" && event.currency !== "XAH") {
+      return false;
+    }
+
+    if (token.type === "issued" && event.currency === "XAH") {
+      return false;
+    }
+
+    if (token.currency && event.currency !== token.currency) {
+      return false;
+    }
+
+    if (token.issuer && event.issuer !== token.issuer) {
+      return false;
+    }
   }
 
-  if (config.token?.type === "issued" && event.currency === "XAH") {
-    return false;
-  }
-
-  if (config.token?.currency && event.currency !== config.token.currency) {
-    return false;
-  }
-
-  if (config.token?.issuer && event.issuer !== config.token.issuer) {
-    return false;
-  }
-
-  // --- Account filters ---
-  if (config.accounts?.from?.length && !config.accounts.from.includes(event.from)) {
-    return false;
-  }
-
-  if (config.accounts?.to?.length && !config.accounts.to.includes(event.to)) {
-    return false;
-  }
-
-  // --- Tag filters ---
+  /* -------------------- Destination Tag -------------------- */
   if (
-    config.tags?.destination !== null &&
-    event.destinationTag !== config.tags.destination
+    conditions?.destinationTag !== null &&
+    event.destinationTag !== conditions.destinationTag
   ) {
     return false;
   }

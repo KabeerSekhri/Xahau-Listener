@@ -1,6 +1,7 @@
 {
   "transactionTypes": [
-    "Payment"
+    "Payment",
+    "AccountSet"
   ],
   "filters": {
     "global": {
@@ -8,22 +9,23 @@
       "memoContains": ""
     },
     "payment": {
-      "amount": {
-        "min": 1,
-        "max": 0,
-        "exact": null
-      },
-      "token": {
-        "type": "native",
-        "currency": null,
-        "issuer": null
-      },
+      "enabled": true,
       "accounts": {
         "from": [],
         "to": []
       },
-      "tags": {
-        "destination": null
+      "conditions": {
+        "amount": {
+          "min": 0,
+          "max": null,
+          "exact": null
+        },
+        "token": {
+          "type": "any",
+          "currency": null,
+          "issuer": null
+        },
+        "destinationTag": null
       }
     },
     "accountSet": {
