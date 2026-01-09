@@ -1,7 +1,9 @@
+// ui/src/App.js
 import { useEffect, useState } from "react";
 import { getConfig, saveConfig } from "./api";
 import PaymentFilters from "./PaymentFilters";
 import AccountSetFilters from "./AccountSetFilters";
+import UriMintFilters from "./UriMintFilters";
 
 function App() {
   const [config, setConfig] = useState(null);
@@ -26,6 +28,16 @@ function App() {
           conditions: {
             domainOnly: false,
             requireFlagChange: false
+          }
+        };
+
+      cfg.filters.uriMint ||= {
+          enabled: true,
+          accounts: { source: [], destination: [] },
+          conditions: {
+            uri: [],
+            amount: { min: 0, max: 0, exact: null },
+            token: { type: "any", currency: null, issuer: null }
           }
         };
 
@@ -60,6 +72,19 @@ function App() {
             filters: {
               ...config.filters,
               accountSet
+            }
+          })
+        }
+      />
+
+      <UriMintFilters
+        uriMint={config.filters.uriMint}
+        onChange={(uriMint) =>
+          setConfig({
+            ...config,
+            filters: {
+              ...config.filters,
+              uriMint
             }
           })
         }

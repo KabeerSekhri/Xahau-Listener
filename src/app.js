@@ -1,3 +1,4 @@
+// src/app.js
 require("dotenv").config();
 
 const { getConfig } = require("./config/configLoader");
@@ -12,9 +13,7 @@ const { sendEmail } = require("./notify/email");
 startListener(async tx => {
   const config = getConfig();
   
-  console.log("🔍 Evaluating:", tx.TransactionType); // Debug to check whats being passed through
-  
-  // if (!config.transactionTypes.includes(tx.TransactionType)) return;
+  // console.log("🔍 Evaluating:", tx.TransactionType); // Debug to check whats being passed through
 
   const event = parseTransaction(tx);
   if (!event) return;

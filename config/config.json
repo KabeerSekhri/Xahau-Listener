@@ -1,7 +1,8 @@
 {
   "transactionTypes": [
     "Payment",
-    "AccountSet"
+    "AccountSet",
+    "URITokenMint"
   ],
   "filters": {
     "global": {
@@ -16,7 +17,7 @@
       },
       "conditions": {
         "amount": {
-          "min": 0,
+          "min": 1,
           "max": null,
           "exact": null
         },
@@ -35,19 +36,27 @@
       },
       "conditions": {
         "domainOnly": false,
-        "requireFlagChange": true
+        "requireFlagChange": false
       }
     },
     "uriMint": {
+      "enabled": true,
       "accounts": {
-        "account": [],
-        "destination": [],
-        "uri": []
+        "source": [],
+        "destination": []
       },
-      "amount": {
-        "min": 0,
-        "max": null,
-        "exact": null
+      "conditions": {
+        "uri": [],
+        "amount": {
+          "min": 0,
+          "max": null,
+          "exact": null
+        },
+        "token": {
+          "type": "native",
+          "currency": null,
+          "issuer": null
+        }
       }
     }
   },

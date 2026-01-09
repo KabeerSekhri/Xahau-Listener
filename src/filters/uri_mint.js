@@ -1,30 +1,50 @@
-function urimintFiltersPass(event, config) {
-    // --- Account filters ---
-    if (config.accounts.account?.length && !config.accounts.account.includes(event.account)) {
+function urimintFiltersPass(event, filter) {
+    if (!filter?.enabled) return false;
+
+    const { accounts, conditions } = filter;
+
+    /* -------------------- Account filters -------------------- */
+    if (accounts?.source?.length && !accounts.source.includes(event.from)) {
         return false;
+    }
+    /* -------------------- Amount filters -------------------- */
+    const amount = conditions?.amount;
+
+    if (amount) {
+        if (amount.exact !== null && event.amount !== amount.exact) {
+        return false;
+        }
+
+        if (amount.min !== null && event.amount < amount.min) {
+        return false;
+        }
+
+        if (amount.max !== null && amount.max > 0 && event.amount > amount.max) {
+        return false;
+        }
     }
 
-    if (config.accounts.destination?.length && !config.accounts.destination.includes(event.destination)) {
+    /* -------------------- Token filters -------------------- */
+    const token = conditions?.token;
+
+    if (token) {
+        if (token.type === "native" && event.currency !== "XAH") {
         return false;
+        }
+
+        if (token.type === "issued" && event.currency === "XAH") {
+        return false;
+        }
+
+        if (token.currency && event.currency !== token.currency) {
+        return false;
+        }
+
+        if (token.issuer && event.issuer !== token.issuer) {
+        return false;
+        }
     }
 
-    if (config.accounts.uri?.length && !config.accounts.uri.includes(event.uri)) {
-        return false;
-    }
-
-    // --- Amount filters ---
-    if (config.amount?.exact !== null && event.amount !== config.amount.exact) {
-        return false;
-    }
-
-    if (config.amount?.min !== null && event.amount < config.amount.min) {
-        return false;
-    }
-
-    if (config.amount?.max !== null && event.amount > config.amount.max) {
-        return false;
-    }
-    
     return true;
 }
 
