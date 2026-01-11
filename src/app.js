@@ -8,6 +8,8 @@ const { matches } = require("./rules/ruleEngine");
 const { isDuplicate } = require("./storage/dedupe");
 const { sendTelegram } = require("./notify/telegram");
 const { sendEmail } = require("./notify/email");
+const { broadcastMatch } = require("./server.js");
+
 
 
 startListener(async tx => {
@@ -22,6 +24,8 @@ startListener(async tx => {
   if (isDuplicate(event.hash)) return;
 
   console.log("🔥 Match:", event.type);
+
+  broadcastMatch(event);
 
   if (config.notifications.telegram.enabled) {
     await sendTelegram(event);

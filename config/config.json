@@ -22,7 +22,7 @@
           "exact": null
         },
         "token": {
-          "type": "any",
+          "type": "issued",
           "currency": null,
           "issuer": null
         },
@@ -30,7 +30,7 @@
       }
     },
     "accountSet": {
-      "enabled": true,
+      "enabled": false,
       "accounts": {
         "source": []
       },
@@ -40,7 +40,7 @@
       }
     },
     "uriMint": {
-      "enabled": true,
+      "enabled": false,
       "accounts": {
         "source": [],
         "destination": []

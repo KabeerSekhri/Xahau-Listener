@@ -7,6 +7,7 @@ import UriMintFilters from "./UriMintFilters";
 
 function App() {
   const [config, setConfig] = useState(null);
+  const [matches, setMatches] = useState([]);
 
   useEffect(() => {
     getConfig().then(res => {
@@ -44,6 +45,19 @@ function App() {
       setConfig(cfg);
     });
   }, []);
+
+  useEffect(() => {
+  const ws = new WebSocket("ws://localhost:4000");
+
+  ws.onmessage = (event) => {
+    const match = JSON.parse(event.data);
+
+    setMatches((prev) => [match, ...prev].slice(0, 50));
+  };
+
+  return () => ws.close();
+  }, []);
+
 
   if (!config) return <div>Loading...</div>;
 
@@ -96,6 +110,18 @@ function App() {
       <button className="save-btn" onClick={() => saveConfig(config)}>
         Save Filters
       </button>
+
+      <h2>Live Matches</h2>
+      <div style={{ maxHeight: 400, overflowY: "auto" }}>
+        {matches.map((m, i) => (
+          <div key={i} className="match">
+            <strong>{m.type}</strong> — {m.summary}
+            <br />
+            <small>{m.time}</small>
+          </div>
+        ))}
+      </div>
+
 
       <footer className="footer">
         Made by <strong>Kabeer Sekhri</strong>
