@@ -237,3 +237,26 @@ h2 {
   font-size: 0.75rem;
   color: #cbd5f5;
 }
+
+.notification p {
+  margin: 6px 0;
+  font-size: 0.85rem;
+}
+
+.notification strong {
+  color: #e5e7eb;
+}
+
+.tx-link {
+  margin-top: 12px;
+}
+
+.tx-link a {
+  font-size: 0.8rem;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.tx-link a:hover {
+  text-decoration: underline;
+}

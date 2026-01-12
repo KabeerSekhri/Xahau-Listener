@@ -17,7 +17,7 @@
       },
       "conditions": {
         "amount": {
-          "min": 0,
+          "min": 1,
           "max": null,
           "exact": null
         },

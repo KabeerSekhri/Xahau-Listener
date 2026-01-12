@@ -1,5 +1,55 @@
 import { useState } from "react";
 
+function shortHash(hash) {
+  if (!hash) return "—";
+  return `${hash.slice(0, 4)}…${hash.slice(-4)}`;
+}
+
+function explorerUrl(hash) {
+  return `https://explorer.xahau.network/tx/${hash}`;
+}
+
+function NotificationBlock({ match }) {
+  switch (match.type) {
+    case "Payment":
+      return (
+        <>
+          <p><strong>hash:</strong> {match.hash}</p>
+          <p><strong>From:</strong> {match.from}</p>
+          <p><strong>To:</strong> {match.to}</p>
+          <p><strong>Amount:</strong> {match.amount} {match.currency}</p>
+        </>
+      );
+
+    case "AccountSet":
+      return (
+        <>
+          <p><strong>hash:</strong> {match.hash}</p>
+          <p><strong>Account:</strong> {match.account}</p>
+          <p><strong>SetFlag:</strong> {match.setFlag ?? "—"}</p>
+          <p><strong>ClearFlag:</strong> {match.clearFlag ?? "—"}</p>
+          <p><strong>Domain:</strong> {match.domain ?? "—"}</p>
+        </>
+      );
+
+    case "URITokenMint":
+      return (
+        <>
+          <p><strong>hash:</strong> {match.hash}</p>
+          <p><strong>Account:</strong> {match.account}</p>
+          <p><strong>Flags:</strong> {match.flags}</p>
+          <p><strong>URI:</strong> {match.uri}</p>
+          <p><strong>Amount:</strong> {match.amount ?? "—"}</p>
+          <p><strong>Destination:</strong> {match.destination ?? "—"}</p>
+        </>
+      );
+
+    default:
+      return <p>Matched transaction</p>;
+  }
+}
+
+
 export default function MatchCard({ match }) {
   const [open, setOpen] = useState(false);
 
@@ -11,37 +61,31 @@ export default function MatchCard({ match }) {
       {/* Header */}
       <div className="match-header">
         <strong>
-          {open ? "▼" : "▶"} {match.type}
+          {open ? "▼" : "▶"} {match.type} | {shortHash(match.hash)}
         </strong>
         <small>{match.time}</small>
       </div>
 
-      <div className="match-summary">
-        {match.summary || "Matched transaction"}
-      </div>
+      {!open && (
+        <div className="match-summary">
+          Tx: {shortHash(match.hash)}
+        </div>
+      )}
 
       {open && (
-        <div className="match-details">
-          <Detail label="Hash" value={match.hash} />
-          <Detail label="Ledger" value={match.ledgerIndex} />
-          <Detail label="Time" value={match.time} />
+        <div className="match-details notification">
+          <NotificationBlock match={match} />
 
-          {match.accounts && (
-            <>
-              <h4>Accounts</h4>
-              {Object.entries(match.accounts).map(([k, v]) => (
-                <Detail key={k} label={k} value={v} />
-              ))}
-            </>
-          )}
-
-          {match.amount && (
-            <>
-              <h4>Amount</h4>
-              <Detail label="Value" value={match.amount.value} />
-              <Detail label="Token" value={match.amount.currency || "XAH"} />
-            </>
-          )}
+          <div className="tx-link">
+            <a
+              href={explorerUrl(match.hash)}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              🔗 View on Xahau Explorer
+            </a>
+          </div>
 
           {match.raw && (
             <>
@@ -53,17 +97,6 @@ export default function MatchCard({ match }) {
           )}
         </div>
       )}
-    </div>
-  );
-}
-
-function Detail({ label, value }) {
-  if (!value) return null;
-
-  return (
-    <div className="detail-row">
-      <span className="detail-label">{label}</span>
-      <span className="detail-value">{String(value)}</span>
     </div>
   );
 }
