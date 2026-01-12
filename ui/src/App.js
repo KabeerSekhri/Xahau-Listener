@@ -4,10 +4,13 @@ import { getConfig, saveConfig } from "./api";
 import PaymentFilters from "./PaymentFilters";
 import AccountSetFilters from "./AccountSetFilters";
 import UriMintFilters from "./UriMintFilters";
+import MatchCard from "./MatchCard";
 
 function App() {
   const [config, setConfig] = useState(null);
   const [matches, setMatches] = useState([]);
+  const [running, setRunning] = useState(true);
+
 
   useEffect(() => {
     getConfig().then(res => {
@@ -47,16 +50,17 @@ function App() {
   }, []);
 
   useEffect(() => {
+  if (!running) return;
+
   const ws = new WebSocket("ws://localhost:4000");
 
   ws.onmessage = (event) => {
     const match = JSON.parse(event.data);
-
     setMatches((prev) => [match, ...prev].slice(0, 50));
   };
 
   return () => ws.close();
-  }, []);
+}, [running]);
 
 
   if (!config) return <div>Loading...</div>;
@@ -110,17 +114,34 @@ function App() {
       <button className="save-btn" onClick={() => saveConfig(config)}>
         Save Filters
       </button>
+      
+      <div className="controls">
+      <button onClick={() => setRunning(true)} disabled={running}>
+        ▶ Start
+      </button>
 
-      <h2>Live Matches</h2>
-      <div style={{ maxHeight: 400, overflowY: "auto" }}>
-        {matches.map((m, i) => (
-          <div key={i} className="match">
-            <strong>{m.type}</strong> — {m.summary}
-            <br />
-            <small>{m.time}</small>
-          </div>
-        ))}
-      </div>
+      <button onClick={() => setRunning(false)} disabled={!running}>
+        ⏸ Stop
+      </button>
+
+      <button onClick={() => setMatches([])}>
+        🧹 Clear
+      </button>
+    </div>
+
+
+    <h2>Live Matches</h2>
+
+    <div style={{ maxHeight: 400, overflowY: "auto" }}>
+      {matches.length === 0 && (
+        <div style={{ color: "#777" }}>No matches yet</div>
+      )}
+
+      {matches.map((m, i) => (
+        <MatchCard key={i} match={m} />
+      ))}
+    </div>
+
 
 
       <footer className="footer">

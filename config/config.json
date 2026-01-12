@@ -17,12 +17,12 @@
       },
       "conditions": {
         "amount": {
-          "min": 1,
+          "min": 0,
           "max": null,
           "exact": null
         },
         "token": {
-          "type": "issued",
+          "type": "any",
           "currency": null,
           "issuer": null
         },
@@ -30,7 +30,7 @@
       }
     },
     "accountSet": {
-      "enabled": false,
+      "enabled": true,
       "accounts": {
         "source": []
       },
@@ -40,7 +40,7 @@
       }
     },
     "uriMint": {
-      "enabled": false,
+      "enabled": true,
       "accounts": {
         "source": [],
         "destination": []
@@ -62,7 +62,7 @@
   },
   "notifications": {
     "telegram": {
-      "enabled": true
+      "enabled": false
     },
     "email": {
       "enabled": false

@@ -27,6 +27,13 @@ function startListener(onTx) {
     console.log("🔴 WS closed — reconnecting in 3s");
     setTimeout(() => startListener(onTx), 3000);
   });
+
+  return {
+    close: async () => {
+      await client.disconnect();
+      console.log("🔌 Ledger listener disconnected");
+    }
+  };
 }
 
 module.exports = { startListener };

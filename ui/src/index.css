@@ -128,3 +128,112 @@ label {
   justify-content: center;
   color: #94a3b8;
 }
+
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 30px 0 20px;
+}
+
+.controls button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e5e7eb;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.controls button:hover:not(:disabled) {
+  border-color: #38bdf8;
+}
+
+.controls button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Live Matches */
+h2 {
+  margin-top: 40px;
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+}
+
+/* Match Card */
+.match-card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: border 0.15s ease, background 0.15s ease;
+}
+
+.match-card:hover {
+  border-color: #38bdf8;
+}
+
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.match-header small {
+  color: #64748b;
+  font-size: 0.75rem;
+}
+
+.match-summary {
+  margin-top: 6px;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+/* Expanded details */
+.match-details {
+  margin-top: 14px;
+  font-size: 0.85rem;
+}
+
+.match-details h4 {
+  margin: 14px 0 6px;
+  font-size: 0.8rem;
+  color: #93c5fd;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Detail rows */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.detail-label {
+  color: #94a3b8;
+}
+
+.detail-value {
+  color: #e5e7eb;
+  word-break: break-all;
+}
+
+/* Raw JSON */
+.raw-json {
+  max-height: 200px;
+  overflow: auto;
+  background: #020617;
+  border: 1px solid #1e293b;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  color: #cbd5f5;
+}

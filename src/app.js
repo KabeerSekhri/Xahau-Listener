@@ -23,7 +23,7 @@ startListener(async tx => {
   if (!matches(event, config)) return;
   if (isDuplicate(event.hash)) return;
 
-  console.log("🔥 Match:", event.type);
+  console.log("🔥 Match:", event.type, event.hash);
 
   broadcastMatch(event);
 
