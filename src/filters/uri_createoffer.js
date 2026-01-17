@@ -1,13 +1,21 @@
-function urimintFiltersPass(event, filter) {
+function uricreateofferFiltersPass(event, filter) {
     if (!filter?.enabled) return false;
 
     const { accounts, conditions } = filter;
 
     /* -------------------- Account filters -------------------- */
-    if (accounts?.source?.length && !accounts.source.includes(event.account)) {
+    if (accounts?.creator?.length && !accounts.creator.includes(event.creator)) {
         return false;
     }
-    /* -------------------- Amount filters -------------------- */
+    
+    /* -------------------- URI filters -------------------- */
+    const uriConditions = conditions?.uri;
+
+    if (uriConditions?.length && !uriConditions.includes(event.tokenID)) {
+        return false;
+    }
+
+      /* -------------------- Amount filters -------------------- */
     const amount = conditions?.amount;
 
     if (amount) {
@@ -45,14 +53,8 @@ function urimintFiltersPass(event, filter) {
         }
     }
 
-    /* -------------------- URI filters -------------------- */
-    const uriConditions = conditions?.uri;
-
-    if (uriConditions?.length && !uriConditions.includes(event.uri)) {
-        return false;
-    }
-
     return true;
+
 }
 
-module.exports = { urimintFiltersPass };
+module.exports = { uricreateofferFiltersPass };

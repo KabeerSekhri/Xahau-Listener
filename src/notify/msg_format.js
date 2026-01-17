@@ -34,9 +34,32 @@ Tx: https://explorer.xahau.network/tx/${event.hash}
 `
 }
 
+function formatURICreateOffer(event) {
+    return `
+🖼️ ${event.type} detected
+Account: ${event.account},
+TokenID: ${event.tokenID}
+Amount: ${event.amount} ${event.currency}
+Destination: ${event.destination ?? "—"}
+Memo: ${event.memo || "—"}
+Tx: https://explorer.xahau.network/tx/${event.hash}
+`
+}
+
+function formatURIBurn(event) {
+    return `
+🔥 ${event.type} detected
+Account: ${event.account},
+TokenID: ${event.tokenID}
+Memo: ${event.memo || "—"}
+Tx: https://explorer.xahau.network/tx/${event.hash}
+`
+}
+
 function formatGeneric(event) {
   return `
 🚨 ${event.type} detected
+Account: ${event.from || "—"}
 Tx: https://explorer.xahau.network/tx/${event.hash}
 `;
 }
@@ -44,7 +67,9 @@ Tx: https://explorer.xahau.network/tx/${event.hash}
 const formatters = {
     Payment: formatPayment,
     AccountSet: formatAccountSet,
-    URITokenMint: formtURImint
+    URITokenMint: formtURImint,
+    URITokenCreateSellOffer: formatURICreateOffer,
+    URITokenBurn: formatURIBurn
 }
 
 function formatEvent(event) {
