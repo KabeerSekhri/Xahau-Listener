@@ -15,7 +15,7 @@ const { broadcastMatch } = require("./server.js");
 startListener(async tx => {
   const config = getConfig();
   
-  console.log("🔍 Evaluating:", tx.TransactionType); // Debug to check whats being passed through
+  // console.log("🔍 Evaluating:", tx.TransactionType); // Debug to check whats being passed through
 
   const event = parseTransaction(tx);
   if (!event) return;

@@ -43,6 +43,24 @@ function NotificationBlock({ match }) {
           <p><strong>Destination:</strong> {match.destination ?? "—"}</p>
         </>
       );
+    case "URITokenCreateSellOffer":
+      return (
+        <>
+          <p><strong>hash:</strong> {match.hash}</p>
+          <p><strong>Account:</strong> {match.account}</p>
+          <p><strong>TokenID:</strong> {match.tokenID}</p>
+          <p><strong>Amount:</strong> {match.amount} {match.currency}</p>
+          <p><strong>Destination:</strong> {match.destination ?? "—"}</p>
+        </>
+      );
+    case "URITokenBurn":
+          return (
+          <>
+            <p><strong>hash:</strong> {match.hash}</p>
+            <p><strong>Account:</strong> {match.account}</p>
+            <p><strong>TokenID:</strong> {match.tokenID}</p>
+          </>
+          );
 
     default:
       return <p>Matched transaction</p>;

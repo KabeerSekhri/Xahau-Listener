@@ -4,7 +4,10 @@ function uricreateofferFiltersPass(event, filter) {
     const { accounts, conditions } = filter;
 
     /* -------------------- Account filters -------------------- */
-    if (accounts?.creator?.length && !accounts.creator.includes(event.creator)) {
+    if (accounts?.source?.length && !accounts.source.includes(event.account)) {
+        return false;
+    }
+    if (accounts?.destination?.length && !accounts.destination.includes(event.destination)) {
         return false;
     }
     

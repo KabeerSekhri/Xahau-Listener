@@ -13,9 +13,6 @@ function formatAccountSet(event) {
   return `
 ⚙️ ${event.type} detected
 Account: ${event.account}
-SetFlag: ${event.setFlag ?? "—"}
-ClearFlag: ${event.clearFlag ?? "—"}
-Domain: ${event.domain ?? "—"}
 Memo: ${event.memo || "—"}
 Tx: https://explorer.xahau.network/tx/${event.hash}
 `;

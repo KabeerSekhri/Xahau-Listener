@@ -4,6 +4,8 @@ import { getConfig, saveConfig } from "./api";
 import PaymentFilters from "./PaymentFilters";
 import AccountSetFilters from "./AccountSetFilters";
 import UriMintFilters from "./UriMintFilters";
+import UriCreateofferFilters from "./UriCreateofferFilters";
+import UriBurnFilters from "./UriBurnFilters";
 import MatchCard from "./MatchCard";
 
 function App() {
@@ -44,6 +46,23 @@ function App() {
             token: { type: "any", currency: null, issuer: null }
           }
         };
+
+      cfg.filters.uriCreateOffer ||= {
+        enabled: true,
+        accounts: { source: [], destination: [] },
+        conditions: {
+          amount: { min: 0, max: 0, exact: null },
+          token: { type: "any", currency: null, issuer: null }
+        }
+      }
+
+      cfg.filters.uriBurn ||= {
+        enabled: true,
+        accounts: { source: [] },
+        conditions: {
+          uri: []
+        }
+      }
 
       setConfig(cfg);
     });
@@ -105,6 +124,30 @@ function App() {
               filters: {
                 ...config.filters,
                 uriMint
+              }
+            })
+          }
+        />
+        <UriCreateofferFilters
+          uriCreateoffer={config.filters.uriCreateOffer}
+          onChange={(uriCreateoffer) =>
+            setConfig({
+              ...config,
+              filters: {
+                ...config.filters,
+                uriCreateoffer
+              }
+            })
+          }
+        />
+        <UriBurnFilters
+          uriBurn={config.filters.uriBurn}
+          onChange={(uriBurn) =>
+            setConfig({
+              ...config,
+              filters: {
+                ...config.filters,
+                uriBurn
               }
             })
           }

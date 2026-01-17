@@ -42,7 +42,7 @@
       }
     },
     "uriMint": {
-      "enabled": true,
+      "enabled": false,
       "accounts": {
         "source": [],
         "destination": []
