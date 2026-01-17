@@ -2,7 +2,9 @@
   "transactionTypes": [
     "Payment",
     "AccountSet",
-    "URITokenMint"
+    "URITokenMint",
+    "URITokenCreateSellOffer",
+    "URITokenBurn"
   ],
   "filters": {
     "global": {
@@ -10,7 +12,7 @@
       "memoContains": ""
     },
     "payment": {
-      "enabled": true,
+      "enabled": false,
       "accounts": {
         "from": [],
         "to": []
@@ -30,7 +32,7 @@
       }
     },
     "accountSet": {
-      "enabled": true,
+      "enabled": false,
       "accounts": {
         "source": []
       },
@@ -40,6 +42,26 @@
       }
     },
     "uriMint": {
+      "enabled": false,
+      "accounts": {
+        "source": [],
+        "destination": []
+      },
+      "conditions": {
+        "uri": [],
+        "amount": {
+          "min": 0,
+          "max": null,
+          "exact": null
+        },
+        "token": {
+          "type": "any",
+          "currency": null,
+          "issuer": null
+        }
+      }
+    },
+    "uriCreateOffer": {
       "enabled": true,
       "accounts": {
         "source": [],
@@ -58,11 +80,20 @@
           "issuer": null
         }
       }
+    },
+    "uriBurn": {
+      "enabled": true,
+      "accounts": {
+        "source": []
+      },
+      "conditions": {
+        "uri": []
+      }
     }
   },
   "notifications": {
     "telegram": {
-      "enabled": false
+      "enabled": true
     },
     "email": {
       "enabled": false
