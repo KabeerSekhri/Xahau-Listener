@@ -36,24 +36,33 @@ export default function PaymentFilters({ payment, onChange }) {
 
       {/* Amount */}
       <h4>Amount</h4>
+      
       <input
         type="number"
+        step="any"
         value={amount.min}
         placeholder="Min"
         onChange={(e) =>
           updateConditions({
-            amount: { ...amount, min: Number(e.target.value) }
+            amount: {  ...amount, min: e.target.value === ""
+                ? 0
+                : parseFloat(e.target.value)
+            }
           })
         }
       />
 
+
       <input
         type="number"
+        step="any"
         value={amount.max}
         placeholder="Max (0 = unlimited)"
         onChange={(e) =>
           updateConditions({
-            amount: { ...amount, max: Number(e.target.value) }
+            amount: {  ...amount, max: e.target.value === ""
+                ? null
+                : parseFloat(e.target.value)}
           })
         }
       />

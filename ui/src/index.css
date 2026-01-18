@@ -102,9 +102,10 @@ label {
   border: none;
   border-radius: 10px;
   color: #020617;
-  font-weight: 600;
+  font-weight: bolder;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  font-size: 0.9rem;
 }
 
 .save-btn:hover {
@@ -130,14 +131,14 @@ label {
 }
 
 /* Controls */
-.controls {
+.controls, .export-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin: 30px 0 20px;
 }
 
-.controls button {
+.controls button, .export-buttons button {
   padding: 8px 14px;
   border-radius: 8px;
   border: 1px solid #334155;
@@ -147,11 +148,11 @@ label {
   font-size: 0.9rem;
 }
 
-.controls button:hover:not(:disabled) {
+.controls button:hover:not(:disabled), .export-buttons button:hover:not(:disabled) {
   border-color: #38bdf8;
 }
 
-.controls button:disabled {
+.controls button:disabled, .export-buttons button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }

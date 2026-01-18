@@ -12,14 +12,14 @@
       "memoContains": ""
     },
     "payment": {
-      "enabled": false,
+      "enabled": true,
       "accounts": {
         "from": [],
         "to": []
       },
       "conditions": {
         "amount": {
-          "min": 1,
+          "min": 0,
           "max": null,
           "exact": null
         },
@@ -82,18 +82,38 @@
       }
     },
     "uriBurn": {
-      "enabled": true,
+      "enabled": false,
       "accounts": {
         "source": []
       },
       "conditions": {
         "uri": []
       }
+    },
+    "uriCreateoffer": {
+      "enabled": false,
+      "accounts": {
+        "source": [],
+        "destination": []
+      },
+      "conditions": {
+        "uri": [],
+        "amount": {
+          "min": 0,
+          "max": null,
+          "exact": null
+        },
+        "token": {
+          "type": "any",
+          "currency": null,
+          "issuer": null
+        }
+      }
     }
   },
   "notifications": {
     "telegram": {
-      "enabled": true
+      "enabled": false
     },
     "email": {
       "enabled": false

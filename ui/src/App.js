@@ -12,8 +12,33 @@ function App() {
   const [config, setConfig] = useState(null);
   const [matches, setMatches] = useState([]);
   const [running, setRunning] = useState(true);
+  const [connected, setConnected] = useState(false);
 
 
+  // Clipboard export
+  const copyMatches = () => {
+    navigator.clipboard.writeText(
+      JSON.stringify(matches, null, 2)
+    );
+    alert("Matches copied to clipboard");
+  };
+
+  // File export
+  const exportMatches = () => {
+    const blob = new Blob(
+      [JSON.stringify(matches, null, 2)],
+      { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "xahau-matches.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // Load config on startup
   useEffect(() => {
     getConfig().then(res => {
       const cfg = res.data;
@@ -68,18 +93,28 @@ function App() {
     });
   }, []);
 
+  // WebSocket listener
   useEffect(() => {
-  if (!running) return;
+    if (!running) {
+      setConnected(false);
+      return;
+    }
 
-  const ws = new WebSocket("ws://localhost:4000");
+    const ws = new WebSocket("ws://localhost:4000");
 
-  ws.onmessage = (event) => {
-    const match = JSON.parse(event.data);
-    setMatches((prev) => [match, ...prev].slice(0, 50));
-  };
+    ws.onopen = () => setConnected(true);
+    ws.onclose = () => setConnected(false);
+    ws.onerror = () => setConnected(false);
 
-  return () => ws.close();
-}, [running]);
+    ws.onmessage = (event) => {
+      const match = JSON.parse(event.data);
+      setMatches((prev) => [match, ...prev]);
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, [running]);
 
 
   if (!config) return <div>Loading...</div>;
@@ -130,12 +165,12 @@ function App() {
         />
         <UriCreateofferFilters
           uriCreateoffer={config.filters.uriCreateOffer}
-          onChange={(uriCreateoffer) =>
+          onChange={(uriCreateOffer) =>
             setConfig({
               ...config,
               filters: {
                 ...config.filters,
-                uriCreateoffer
+                uriCreateOffer
               }
             })
           }
@@ -172,6 +207,16 @@ function App() {
       </button>
     </div>
 
+      <div className="status">
+      <span
+        style={{
+          color: connected ? "limegreen" : "red",
+          fontWeight: "bold"
+        }}
+      >
+        ● {connected ? "Connected" : "Disconnected"}
+      </span>
+    </div>
 
     <h2>Live Matches</h2>
 
@@ -185,6 +230,10 @@ function App() {
       ))}
     </div>
 
+    <div className="export-buttons">
+        <button onClick={copyMatches}>📋 Copy Matches</button>
+        <button onClick={exportMatches}>💾 Export Matches</button>
+      </div>
 
 
       <footer className="footer">
