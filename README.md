@@ -1,5 +1,40 @@
 # Xahau Ops Detector – Developer README
 
+A real-time transaction monitoring and filtering tool for the Xahau network.
+
+## What It Does
+
+This application:
+
+- Connects to a Xahau WebSocket server
+- Monitors live transactions
+- Applies configurable filters
+- Displays matching transactions in real time
+- Allows exporting matched transactions
+
+Supported transaction types:
+
+- Payment
+- AccountSet
+- URITokenMint
+- URITokenCreateSellOffer
+- URITokenBurn
+
+---
+
+## Architecture
+
+Backend:
+- Node.js
+- WebSocket server
+- Rule engine for transaction filtering
+
+Frontend:
+- React
+- Live WebSocket listener
+- Configurable filter UI
+- Match persistence via localStorage
+
 ## Running the Project
 
 To run the project locally, you need to run **both the backend and the UI simultaneously**.

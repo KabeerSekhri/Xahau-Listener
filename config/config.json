@@ -19,7 +19,7 @@
       },
       "conditions": {
         "amount": {
-          "min": 0,
+          "min": 1,
           "max": null,
           "exact": null
         },
@@ -32,7 +32,7 @@
       }
     },
     "accountSet": {
-      "enabled": false,
+      "enabled": true,
       "accounts": {
         "source": []
       },
@@ -42,7 +42,7 @@
       }
     },
     "uriMint": {
-      "enabled": false,
+      "enabled": true,
       "accounts": {
         "source": [],
         "destination": []
@@ -82,7 +82,7 @@
       }
     },
     "uriBurn": {
-      "enabled": false,
+      "enabled": true,
       "accounts": {
         "source": []
       },
