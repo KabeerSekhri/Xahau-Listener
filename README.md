@@ -36,8 +36,15 @@ Frontend:
 - Match persistence via localStorage
 
 ## Running the Project
+To run the project simply, run:
 
-To run the project locally, you need to run **both the backend and the UI simultaneously**.
+From the **source directory**:
+
+   ```bash
+   npm run dev
+   ```
+   
+Or, to run the project backend and UI seperately, you need to run:
 
 ### Required
 
